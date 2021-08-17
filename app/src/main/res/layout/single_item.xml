@@ -6,8 +6,7 @@
     android:layout_height="match_parent">
 
     <TableRow
-        android:layout_width="315dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
         android:paddingLeft="150dp"
@@ -17,14 +16,15 @@
             android:id="@+id/urlImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            app:srcCompat="@android:drawable/arrow_down_float" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_search_black_24dp" />
+
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="0"
         android:orientation="horizontal">
 
         <TextView
@@ -51,7 +51,8 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="0">
 
         <TextView
             android:id="@+id/descriptionAPI"

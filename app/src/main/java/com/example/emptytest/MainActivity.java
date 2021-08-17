@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         view.setHasFixedSize(true);
         observable = Observable.just("notsure");
         view.setLayoutManager(layoutManager);
-        observable.observeOn(AndroidSchedulers.mainThread());
-        observable.subscribeOn(Schedulers.io());
 
 
          observer = new Observer<String>() {
@@ -103,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
              }
          };
 
-        observable.subscribe(observer);
+        //observable.subscribe(observer);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(observer);
 
 
 
