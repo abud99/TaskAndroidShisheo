@@ -15,6 +15,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -33,10 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView view;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private Parser parser;
     private final String url = "https://gateway-dev.shisheo.com/social/api/web/post/arina/test";
-    private Request request;
-    private Observable<String> observable;
-    private Observer<String> observer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,66 +46,49 @@ public class MainActivity extends AppCompatActivity {
         view = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
         view.setHasFixedSize(true);
-        observable = Observable.just("notsure");
         view.setLayoutManager(layoutManager);
+        Observable.fromCallable(new Callable<Response>() {
+            @Override
+            public Response call() throws Exception {
+                Response response = client.newCall(new Request.Builder().url(url).build()).execute();
+                return response;
 
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new Observer<Response>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
-         observer = new Observer<String>() {
-             @Override
-             public void onSubscribe(@NonNull Disposable d) {
-                 request = new Request.Builder()
-                         .url(url)
-                         .build();
-             }
+            }
+            @Override
+            public void onNext(@NonNull Response response) {
+                String json = null;
+                if (response.isSuccessful()){
+                    try {
+                        json = response.body().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-             @Override
-             public void onNext(@NonNull String s) {
+                }
+                try {
+                    parser = new Parser(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                adapter = new CustomAdapter(Parser.list);
+                view.setAdapter(adapter);
+            }
 
-             }
+            @Override
+            public void onError(@NonNull Throwable e) {
 
-             @Override
-             public void onError(@NonNull Throwable e) {
+            }
 
-             }
+            @Override
+            public void onComplete() {
 
-             @Override
-             public void onComplete() {
-                 client.newCall(request).enqueue(new Callback() {
-                     @Override
-                     public void onFailure(@androidx.annotation.NonNull Call call, @androidx.annotation.NonNull IOException e) {
-
-                     }
-
-                     @Override
-                     public void onResponse(@androidx.annotation.NonNull Call call, @androidx.annotation.NonNull Response response) throws IOException {
-                        if(response.isSuccessful()){
-                            MainActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        parse = new Parser(response.body().string());
-                                        adapter = new CustomAdapter(Parser.list);
-                                        view.setAdapter(adapter);
-                                        adapter.notifyDataSetChanged();
-                                    } catch (JSONException | IOException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                            });
-
-
-                        }
-                     }
-                 });
-             }
-         };
-
-        //observable.subscribe(observer);
-        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(observer);
-
-
-
+            }
+        });
 
 
     }
