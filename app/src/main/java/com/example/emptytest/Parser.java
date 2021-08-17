@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Parser {
     private String stringJson;
-    ArrayList<Restaurant> list = new ArrayList<>();
+    public static ArrayList<Restaurant> list = new ArrayList<>();
 
     public Parser(String jason) throws JSONException {
         this.stringJson = jason;

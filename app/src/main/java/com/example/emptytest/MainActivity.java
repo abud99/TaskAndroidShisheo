@@ -1,8 +1,12 @@
 package com.example.emptytest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -17,11 +21,21 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     private Parser parse;
+    private RecyclerView view;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         OkHttpClient client = new OkHttpClient();
+        view = findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        view.setHasFixedSize(true);
+        view.setLayoutManager(layoutManager);
+
+
 
         String url = "https://gateway-dev.shisheo.com/social/api/web/post/arina/test";
 
@@ -45,19 +59,24 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                  parse = new Parser(myResponse);
+                                adapter = new CustomAdapter(Parser.list);
+                                view.setAdapter(adapter);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            parse.print();
 
                         }
                     });
                 }
                 else{
-                    System.out.println("Soemthing went wrong?");
+                    System.out.println("Something went wrong?");
                 }
 
             }
         });
+
+
+
+
     }
 }
