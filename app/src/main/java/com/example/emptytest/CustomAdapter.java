@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
@@ -34,6 +36,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             holder.name.setText(item.getName());
             holder.description.setText(item.getDescrp());
             holder.offer.setText(item.getOffer());
+            Glide.with(holder.urlImage.getContext()).load(item.getUrl()).into(holder.urlImage);
             holder.urlImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

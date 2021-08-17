@@ -9,7 +9,7 @@ public class Restaurant {
     private String offer;
     private String descrp;
     private String url;
-    private int stars = 0;
+    private double stars = 5;
 
     public Restaurant(String name, String offer, String descrp, String url) {
         this.name = name;
@@ -50,7 +50,7 @@ public class Restaurant {
         this.url = url;
     }
 
-    public int getStars() {
+    public double getStars() {
         return stars;
     }
 

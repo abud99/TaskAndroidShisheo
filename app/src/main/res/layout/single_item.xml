@@ -3,26 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_rowSpan="4"
-    android:layout_span="2">
+    android:layout_height="match_parent">
 
     <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="315dp"
+        android:layout_height="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:paddingLeft="150dp"
+        android:scaleY="0.5">
 
         <ImageButton
             android:id="@+id/urlImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             app:srcCompat="@android:drawable/arrow_down_float" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/nameAPI"
@@ -39,8 +42,8 @@
             android:layout_height="wrap_content"
             android:isIndicator="true"
             android:max="5"
-            android:scaleX=".5"
-            android:scaleY=".5"
+            android:numStars="5"
+            android:rating="5"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
             android:visibility="invisible" />

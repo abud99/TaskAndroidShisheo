@@ -20,12 +20,6 @@ public class Parser {
 
     }
 
-    public void print(){
-        for (Restaurant rest: list)
-        {
-            System.out.println(rest.getDescrp() + "\n");
-        }
-    }
 
 
 
