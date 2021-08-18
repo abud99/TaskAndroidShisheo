@@ -19,14 +19,14 @@
                 android:id="@+id/urlImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_weight="0.7"
+                android:background="@null" />
 
             <TextView
                 android:id="@+id/nameAPI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.2"
                 android:text="TextView"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -35,7 +35,7 @@
                 android:id="@+id/descriptionAPI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.3"
                 android:maxLines="3"
                 android:text="TextView" />
 
@@ -43,7 +43,7 @@
                 android:id="@+id/offerAPI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.15"
                 android:text="TextView"
                 android:textColor="#00BCD4" />
 
@@ -51,7 +51,7 @@
                 android:id="@+id/starAPI"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
+                android:layout_gravity="right"
                 android:numStars="5"
                 android:progressTint="#FFEB3B"
                 android:rating="5"
